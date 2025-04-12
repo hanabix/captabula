@@ -13,11 +13,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: coursier/setup-action@v1
+        with:
+          apps: sbt
       - name: branch-names
         id: branch-name
         uses: tj-actions/branch-names@v7
-      - run: sbtn coverage +test  
-      - run: sbtn coverageReport coveralls
+      - run: sbt coverage +test  
+      - run: sbt coverageReport coveralls
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CI_BRANCH: ${{ steps.branch-name.outputs.current_branch }}
